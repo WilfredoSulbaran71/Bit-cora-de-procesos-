@@ -1,0 +1,22 @@
+{
+  "name": "celery-bitacora",
+  "version": "1.0.0",
+  "description": "Base de tatos con conexion MYSQL, con un CRUD que permita llevar el control de las actividades realizadas por cliente",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "WIlfredo Sulbaran",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
