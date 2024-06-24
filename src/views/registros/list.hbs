@@ -1,6 +1,6 @@
 <div class="container">
     
-    <div class="row mt-4">
+    <div class="row mt-5">
         {{#if registros}}
                      
                 <table class="table text-center table table-dark table-striped-columns">
@@ -19,7 +19,7 @@
                     <tbody >
                         {{#each registros}}
                             <tr class="font-size: 12px;">
-                                <td> {{fecha}}</td>
+                                <td> {{fechaFormateada}}</td>
                                 <td> {{cliente}}</td>
                                 <td> {{solicitante}}</td>
                                 <td> {{descripcion}}</td>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="card-body">
                     <p>Crea un registro nuevo de las actividades realizadas por clientes</p>
-                    <a href="#" class="btn btn-primary">Crear registro</a>
+                    <a href="/add" class="btn btn-primary">Crear registro</a>
                 </div>
             </div>
         {{/if}}
