@@ -30,6 +30,28 @@ router.post('/add', async(req, res)=>{
     }
 })
 
+/* Obtener opciones de estado
+const estadoOptions = await fetch('/estado-options')
+  .then(response => response.json())
+  .catch(error => {
+    console.error('Error al obtener opciones de estado:', error);
+    res.status(500).json({ mensaje: 'Error al obtener opciones de estado' });
+    return []; // Devolver una matriz vacía para evitar errores en la consulta INSERT
+  });
+*/
+
+  router.get('/estados', async (req, res) => {
+    try {
+        // Listar estados
+        const [result] = await pool.query('SELECT * FROM Estados');
+        res.json({ estados: result });
+        console.log(result);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 
 //vista para editar datos:
 router.get('/edit/:id', async(req, res)=>{

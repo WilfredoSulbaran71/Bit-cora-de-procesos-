@@ -45,6 +45,25 @@
       Please select a valid state.
     </div>
      </div>
+
+  <div class="col-md-3">
+    
+  <script>
+    fetch('/estado-options')
+      .then(response => response.json())
+      .then(estadoOptions => {
+        const estadoSelect = document.getElementById('estado');
+        estadoOptions.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option;
+          optionElement.textContent = option;
+          estadoSelect.appendChild(optionElement);
+        });
+      });
+  </script>
+
+  </div>
+
   <div class="col-md-3">
     <label for="responsable" class="form-label">Responsable</label>
     <input type="text" class="form-control" id="responsable" name="responsable" required>
