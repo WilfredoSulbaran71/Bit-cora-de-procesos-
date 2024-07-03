@@ -1,71 +1,71 @@
-
- 
 <div class="container p-4" style="color: aqua;">
-    <h3>Editando datos</h3>
-<form class="row g-3 needs-validation" method="post" action="/edit/{{registro.id}}" novalidate>
-  <div class="col-md-4">
-    <label for="fecha " class="form-label">Fechas</label>
-    <input type="date" class="form-control" id="fecha" name="fecha"  value="{{registro.fechaFormateada}}" autofocus required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-   <div class="col-md-4">
-    <label for="cliente" class="form-label">Cliente</label>
-    <input type="text" class="form-control" id="cliente" name="cliente"  value="{{registro.cliente}}" required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-4">
-    <label for="solicitante" class="form-label">Solicitante</label>
-    <input type="text" class="form-control" id="solicitante" name="solicitante" value="{{registro.solicitante}}" required>
-    <div class="valid-feedback">
-      Looks good!
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label for="descripcion" class="form-label">Descripcion</label>
-    <div class="input-group has-validation">
-      <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="inputGroupPrepend" value="{{registro.descripcion}}" required>
-      <div class="invalid-feedback">
-        Please choose a username.
+  <h3>Editando datos</h3>
+  <form class="row g-3 needs-validation" method="post" action="/edit/{{registro.id}}" novalidate>
+    <div class="col-md-4">
+      <label for="fecha " class="form-label">Fechas</label>
+      <input type="date" class="form-control" id="fecha" name="fecha" value="{{registro.fechaFormateada}}" autofocus
+        required>
+      <div class="valid-feedback">
+        Looks good!
       </div>
     </div>
-  </div>
- <div class="col-md-3">
-    <label for="estado" class="form-label">Estado</label>
-    <select class="form-select" id="estado" name="estado" value="{{registro.estado}}" required>
-      <option>En progreso</option>
-      <option>Pendiente</option>
-      <option>Finalizado</option>
-    </select>
-    <div class="invalid-feedback">
-      Please select a valid state.
-    </div>
-     </div>
-  <div class="col-md-3">
-    <label for="responsable" class="form-label">Responsable</label>
-    <input type="text" class="form-control" id="responsable" name="responsable"  value="{{registro.responsable}}" required>
-    <div class="invalid-feedback">
-   </div>
-  </div>
-   <div class="col-md-12">
-    <label for="observaciones" class="form-label">Observaciones</label>
-    <div class="input-group has-validation">
-      <input type="text" class="form-control" id="observaciones"  name="observaciones" aria-describedby="inputGroupPrepend" value="{{registro.observaciones}}" required>
-      <div class="invalid-feedback">
-        Please choose a username.
+    <div class="col-md-4">
+      <label for="cliente" class="form-label">Cliente</label>
+      <input type="text" class="form-control" id="cliente" name="cliente" value="{{registro.cliente}}" required>
+      <div class="valid-feedback">
+        Looks good!
       </div>
     </div>
-  </div>
-  
-  <div class="col-12">
-    <button class="btn btn-success" type="submit">Actualizar</button>
-  </div>
-</form>
+    <div class="col-md-4">
+      <label for="solicitante" class="form-label">Solicitante</label>
+      <input type="text" class="form-control" id="solicitante" name="solicitante" value="{{registro.solicitante}}"
+        required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="descripcion" class="form-label">Descripcion</label>
+      <div class="input-group has-validation">
+        <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="inputGroupPrepend"
+          value="{{registro.descripcion}}" required>
+        <div class="invalid-feedback">
+          Please choose a username.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="estado" class="form-label">Estado</label>
+      <select class="form-select" id="estado" name="estado" value="{{registro.estado}}" required>
+        <option >{{registro.estado}}</option>
+        <option>En progreso</option>
+        <option>Pendiente</option>
+        <option>Finalizado</option>
+      </select>
+      <div class="invalid-feedback">
+        Please select a valid state.
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="responsable" class="form-label">Responsable</label>
+      <input type="text" class="form-control" id="responsable" name="responsable" value="{{registro.responsable}}"
+        required>
+      <div class="invalid-feedback">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <label for="observaciones" class="form-label">Observaciones</label>
+      <div class="input-group has-validation">
+        <input type="text" class="form-control" id="observaciones" name="observaciones"
+          aria-describedby="inputGroupPrepend" value="{{registro.observaciones}}" required>
+        <div class="invalid-feedback">
+          Please choose a username.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-success" type="submit">Actualizar</button>
+    </div>
+  </form>
 </div>
-
-
-
-

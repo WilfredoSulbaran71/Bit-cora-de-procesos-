@@ -1,34 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitacora Ag. Celery</title>
-    {{!----Bootstrap---}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitacora Ag. Celery</title>
+  {{!----Bootstrap---}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .selectestatus>option {
+      font-size: 15px;
+    }
+
+    .selectestatus {
+      font-size: 15px;
+      letter-spacing: 4px;
+    }
+  </style>
+
+
 </head>
-<body style="background-image: url(/img/fondo5.jpg);
+
+<body style="background-image: linear-gradient(to bottom, #011739, #061835, #0b1931, #0f192d, #131a29, #131d2b, #14212d, #16242e, #132c35, #113339, #133b3b, #1a423b);
 background-positions: center;
 background-size: cover;
 background-attachment:fixed;
 background-repeat:no-repeat;
-"> 
-    {{>navigation}}
-    {{{body}}}
+">
+  {{>navigation}}
+  {{{body}}}
 
-    {{!----Script de Bootstrap---}}
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  {{!----Script de Bootstrap---}}
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
 
-{{!----para llamar los datos ---}}
-  
+  {{!----para llamar los datos ---}}
+
   <script>
     fetch('/estado')
       .then(response => response.json())
       .then(estadoOptions => {
         const estadoSelect = document.getElementById('estado');
-        estadoOptions.forEach(option => {
+        estadoOptions.estados.forEach(option => {
           const optionElement = document.createElement('option');
           optionElement.value = option;
           optionElement.textContent = option;
@@ -37,5 +57,23 @@ background-repeat:no-repeat;
       });
   </script>
 
+  {{!----Funcion filtrar por opciones ---}}
+
+  <script>
+    function filtroEstado() {
+      const estado = document.getElementById("filtroEstado").value;
+      fetch(`/list?estado=${estado}`)
+        .then(response => response.json())
+        .then(result => {
+          document.open()
+          document.write(result.registros)
+          document.close()
+        })
+    }
+
+  </script>
+
+
 </body>
+
 </html>

@@ -51,6 +51,7 @@ router.get('/edit/:id', async(req, res)=>{
         const {id} = req.params;
         const [registro] = await pool.query('SELECT * , DATE_FORMAT(fecha, "%Y-%m-%d")as fechaFormateada FROM registros WHERE id = ?', [id]);
         const registroEdit = registro[0];
+       console.log(registroEdit)
         res.render('registros/edit', {registro: registroEdit});
     }
     catch(err){
@@ -91,14 +92,17 @@ router.get('/delete/:id', async(req, res)=>{
 })
 
 
-///////////////////////////
+//////////Generador de la tabla de datos/////////////////
 
 router.get('/list', async(req, res)=>{
     try{
-
+        const estado = req.query.estado;
+        const filtro = estado ? `WHERE estado ='${estado}'`:'';
         // almacenar datos
-        const [result] = await pool.query('SELECT * , DATE_FORMAT(fecha, "%Y-%m-%d")as fechaFormateada FROM registros');
+        const [result] = await pool.query(`SELECT * , DATE_FORMAT(fecha, "%Y-%m-%d")as fechaFormateada FROM registros ${filtro}`);
+        console.log(result)
         res.render('registros/list', {registros: result} )
+
         //console.log(result)
 
     }

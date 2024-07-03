@@ -1,57 +1,67 @@
 <div class="container">
-    
-    <div class="row mt-5">
+    <div class="mt-4  w-25" >
+        <h3 style="color: aqua;">Selección de estado</h3>
+        <select name="" id="filtroEstado" onchange="filtroEstado()" class="form-select form-select-sm selectestatus "  aria-label="Large select example" >
+            <option selected>En progreso</option>
+            <option selected>Pendiente</option>
+            <option selected>Finalizado</option>
+        </select>
+    </div>
+
+    <div class="mt-5 table-responsive-sm">
         {{#if registros}}
-                     
-                <table class="table text-center table table-dark table-striped-columns">
-                    <thead>
-                        <tr class="table-dark">
-                            <th scope="col" class="col-4">Fecha</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Solicitante</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Responsable</th>
-                            <th scope="col">Observaciones</th>
-                            <th scope="col">Acciones</th>                            
-                        </tr>
-                    </thead>
-                    <tbody >
-                        {{#each registros}}
-                            <tr class="font-size: 12px;">
-                                <td> {{fechaFormateada}}</td>
-                                <td> {{cliente}}</td>
-                                <td> {{solicitante}}</td>
-                                <td> {{descripcion}}</td>
-                                <td> {{estado}}</td>
-                                <td> {{responsable}}</td>
-                                <td> {{observaciones}}</td>
-                                <td> 
-                                    <div class="btn-group">
-                                        <a href="/edit/{{id}}" class="btn btn-warning" ><i class="fa-regular fa-pen-to-square p-2"></i></a>
-                                        <a href="/delete/{{id}}" class="btn btn-danger"><i class="fa-regular fa-trash-can p-2"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                    <tfoot>
-                        <tr class="table-dark">
-                            <td colspan="12">Registro de actividades</td>
-                        </tr>
-                    </tfoot> 
-                </table>
-                  
-            {{else}}
-            <div class="card text-center mx-auto" style="width:350px;">
-                <div class="card-header">
-                    <h3>Registro de actividades</h3>
-                </div>
-                <div class="card-body">
-                    <p>Crea un registro nuevo de las actividades realizadas por clientes</p>
-                    <a href="/add" class="btn btn-primary">Crear registro</a>
-                </div>
+
+        <table class="table text-center table table-dark table-striped-columns table table-hover table-striped table-bordered Regular shadow">
+            <thead>
+                <tr class="table-dark border-primary">
+                    <th scope="col" class="col-2">Fecha</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col" class="col-2">Solicitante</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each registros}}
+                <tr class="font-size: 12px;">
+                    <td> {{fechaFormateada}}</td>
+                    <td> {{cliente}}</td>
+                    <td> {{solicitante}}</td>
+                    <td> {{descripcion}}</td>
+                    <td> {{estado}}</td>
+                    <td> {{responsable}}</td>
+                    <td> {{observaciones}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="/edit/{{id}}" class="btn btn-warning"><i
+                                    class="fa-regular fa-pen-to-square p-2"></i></a>
+                            <a href="/delete/{{id}}" class="btn btn-danger"><i
+                                    class="fa-regular fa-trash-can p-2"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr class="table-dark">
+                    <td colspan="12">Registro de actividades</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        {{else}}
+        <div class="card text-center mx-auto" style="width:350px;">
+            <div class="card-header">
+                <h3>Registro de actividades</h3>
             </div>
+            <div class="card-body">
+                <p>Crea un registro nuevo de las actividades realizadas por clientes</p>
+                <a href="/add" class="btn btn-primary">Crear registro</a>
+            </div>
+        </div>
         {{/if}}
     </div>
 </div>
