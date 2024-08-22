@@ -60,18 +60,137 @@ background-repeat:no-repeat;
   {{!----Funcion filtrar por opciones ---}}
 
   <script>
-    function filtroEstado() {
-      const estado = document.getElementById("filtroEstado").value;
-      fetch(`/list?estado=${estado}`)
-        .then(response => response.json())
-        .then(result => {
-          document.open()
-          document.write(result.registros)
-          document.close()
-        })
+    async function filtroEstado() {
+      const estado = document.getElementById('filtroEstado').value || '';
+
+      try {
+        const response = await fetch('http://localhost:3000/list/filter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ estado: estado })
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        const tablaRegistros = document.getElementById('tablaRegistros');
+
+        if (data.registros && data.registros.length > 0) {
+          let tableHTML = `
+                <table class="table text-center table table-dark table-striped-columns table table-hover table-striped table-bordered Regular shadow">
+                    <thead>
+                        <tr class="table-dark border-primary">
+                            <th scope="col" class="col-2">Fecha</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col" class="col-2">Solicitante</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Responsable</th>
+                            <th scope="col">Observaciones</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+          data.registros.forEach(registro => {
+            tableHTML += `
+                    <tr class="font-size: 12px;">
+                        <td>${registro.fechaFormateada}</td>
+                        <td>${registro.cliente}</td>
+                        <td>${registro.solicitante}</td>
+                        <td>${registro.descripcion}</td>
+                        <td>${registro.estado}</td>
+                        <td>${registro.responsable}</td>
+                        <td>${registro.observaciones}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="/edit/${registro.id}" class="btn btn-warning"><i class="fa-regular fa-pen-to-square p-2"></i></a>
+                                <a onclick="seleccionarId(${registro.id})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-regular fa-trash-can p-2"></i></a>
+                            </div>
+
+                            
+                        </td>
+                    </tr>`;
+          });
+
+          tableHTML += `
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-dark">
+                            <td colspan="12">Registro de actividades</td>
+                        </tr>
+                    </tfoot>
+                </table>`;
+          tablaRegistros.innerHTML = tableHTML;
+        } else {
+          tablaRegistros.innerHTML = `
+                <div class="card text-center mx-auto" style="width:350px;">
+                    <div class="card-header">
+                        <h3>Registro de actividades</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>No hay registros disponibles para el estado seleccionado.</p>
+                        <a href="/add" class="btn btn-primary">Crear registro</a>
+                    </div>
+                </div>`;
+        }
+      } catch (error) {
+        console.error('Error al obtener los registros:', error);
+        document.getElementById('tablaRegistros').innerHTML = `
+            <div class="alert alert-danger" role="alert">
+                Error al obtener los registros. Por favor, inténtalo de nuevo más tarde.
+            </div>`;
+      }
     }
 
+    // Llama a filtroEstado() al cargar la página para obtener todos los registros por defecto
+    document.addEventListener('DOMContentLoaded', filtroEstado);
   </script>
+
+  <script>
+    function seleccionarId(id){
+      localStorage.setItem("deleteId",id);
+    }
+
+    async function deleteRegister(){
+      const id=localStorage.getItem("deleteId"); 
+    
+      try{
+      
+        const response = await fetch('http://localhost:3000/delete/'+id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+         
+        if(data.delete){
+          
+          await filtroEstado()          
+          
+        }
+      }
+      catch(error){
+        alert(error)
+      }
+
+    }
+
+
+  </script>
+
+
+  
 
 
 </body>

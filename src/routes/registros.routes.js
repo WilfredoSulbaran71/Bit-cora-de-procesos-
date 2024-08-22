@@ -77,7 +77,7 @@ router.post('/edit/:id', async(req, res)=>{
     
 })
 
-router.get('/delete/:id', async(req, res)=>{
+/*router.get('/delete/:id', async(req, res)=>{
     try{
         const {id} = req.params;
         await pool.query('DELETE FROM registros WHERE id = ?', [id])
@@ -90,6 +90,21 @@ router.get('/delete/:id', async(req, res)=>{
     }
 
 })
+*/
+    
+
+router.get('/delete/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM registros WHERE id = ?', [id])
+            .catch(error => { console.error(error); });
+            res.status(200).json({delete:true});
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 
 
 //////////Generador de la tabla de datos/////////////////
@@ -102,6 +117,7 @@ router.get('/list', async(req, res)=>{
         const [result] = await pool.query(`SELECT * , DATE_FORMAT(fecha, "%Y-%m-%d")as fechaFormateada FROM registros ${filtro}`);
         console.log(result)
         res.render('registros/list', {registros: result} )
+        
 
         //console.log(result)
 
@@ -110,6 +126,39 @@ router.get('/list', async(req, res)=>{
         res.status(500).json({message:err.message});
     }
 });
+
+
+/*router.get('/list/filter/:estado', async(req, res)=>{
+    try{
+        const estado = req.params.estado;
+        const filtro = estado ? `WHERE estado ='${estado}'`:'';
+        // almacenar datos
+        const [result] = await pool.query(`SELECT * , DATE_FORMAT(fecha, "%Y-%m-%d")as fechaFormateada FROM registros ${filtro}`);
+        console.log(result)
+        res.json({registros: result});
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
+});*/ 
+
+router.post('/list/filter', async(req, res)=>{
+    try{
+       const estado = req.body.estado;
+       const filtro = estado ? `WHERE estado ='${estado}'`:''; 
+       const [result] = await pool.query(`SELECT * , DATE_FORMAT(fecha, "%Y-%m-%d")as fechaFormateada FROM registros ${filtro} order by fechaFormateada desc ` );
+
+       res.json({registros: result });
+
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
+});
+
+
+
+
 
 
 
